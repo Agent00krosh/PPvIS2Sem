@@ -2,17 +2,15 @@ package com.company.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Task2 {
+class Task2 {
     private JTextField textField;
     private JPanel editTextPanel;
     private JPanel buttonsPanel;
     private JButton readButton;
     private JButton updateButton;
 
-    public JPanel task2(){
+    JPanel run(){
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         initEditTextPanel();
@@ -34,21 +32,13 @@ public class Task2 {
     private void initButtons(){
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
-        readButton = new JButton();
-        readButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onClickRead();
-            }
-        });
+        readButton = new JButton("read");
+        readButton.addActionListener(e -> onClickRead());
 
-        updateButton = new JButton();
-        updateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onClickUpdate();
-            }
-        });
+
+        updateButton = new JButton("update");
+        updateButton.addActionListener(e -> onClickUpdate());
+
         buttonsPanel.add(readButton);
         buttonsPanel.add(updateButton);
     }

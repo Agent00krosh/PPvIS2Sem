@@ -1,8 +1,6 @@
 package com.company.ui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 class Task1 {
     private JComboBox<String> comboBox;
@@ -10,9 +8,9 @@ class Task1 {
     private JPanel editTextPanel;
     private JPanel comboBoxPanel;
 
-    JPanel task1() {
+    JPanel run() {
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
         initEditTextPanel();
         initComboBox();
         mainPanel.add(editTextPanel);
@@ -33,12 +31,7 @@ class Task1 {
         textField = new JTextField(10);
         editTextPanel.add(textField);
         JButton sendText = new JButton("Push");
-        sendText.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onClickSend();
-            }
-        });
+        sendText.addActionListener(e -> onClickSend());
         editTextPanel.add(sendText);
     }
 
