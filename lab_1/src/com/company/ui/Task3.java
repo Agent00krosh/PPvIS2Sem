@@ -1,7 +1,7 @@
 package com.company.ui;
 import javax.swing.*;
 
-class Task3  {
+class Task3 {
     private JTextField textField;
     private JPanel editTextPanel;
     private JPanel radioButtonPanel;
@@ -12,7 +12,7 @@ class Task3  {
 
     private ButtonGroup buttonGroup;
 
-    JPanel run(){
+    JPanel run() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         initEditTextPanel();
@@ -26,7 +26,7 @@ class Task3  {
         editTextPanel = new JPanel();
         JLabel label = new JLabel("Edit Text ");
         editTextPanel.add(label);
-        textField = new JTextField(20 );
+        textField = new JTextField(20);
         editTextPanel.add(textField);
         JButton pushButton = new JButton("Push");
         pushButton.addActionListener(e -> onClickPushButton());
@@ -59,7 +59,7 @@ class Task3  {
     }
 
 
-    private void initRadioButtonPanel(){
+    private void initRadioButtonPanel() {
 
         buttonGroup = new ButtonGroup();
         radioButtonPanel = new JPanel();

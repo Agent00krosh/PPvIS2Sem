@@ -33,7 +33,7 @@ class Task4 {
     }
 
     private void onClickPushButton() {
-        clearCheckBoxes();
+//        clearCheckBoxes();
         if (!isNotError()) {
             errorIsVisible();
             return;
@@ -70,7 +70,7 @@ class Task4 {
     private void fillCheckBoxes() {
         List<String> names = getNamesOfBoxes();
         for (String name : names) {
-            checkBoxes.get(getCheckBoxPosition(name)).setSelected(true);
+            checkBoxes.get(getCheckBoxPosition(name)).setSelected(!checkBoxes.get(getCheckBoxPosition(name)).isSelected());
         }
     }
 

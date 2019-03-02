@@ -5,7 +5,6 @@ import javax.swing.*;
 
 public class GUI {
     private JPanel main;
-    private JFrame window;
     private JPanel task1;
     private JPanel task2;
     private JPanel task3;
@@ -13,25 +12,21 @@ public class GUI {
     private JPanel task5;
     private JPanel currentTask;
 
-    public GUI(){
-        window = new JFrame("Lab1");
+    public GUI() {
+        JFrame window = new JFrame("Lab1");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(850,550);
-
-
+        window.setSize(850, 550);
 
         main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.PAGE_AXIS));
         initNavigation();
         initTasks();
 
-
         window.add(main);
-
         window.setVisible(true);
     }
 
-    private void initNavigation(){
+    private void initNavigation() {
         JPanel navigation = new JPanel();
         navigation.setLayout(new BoxLayout(navigation, BoxLayout.LINE_AXIS));
 
@@ -56,10 +51,9 @@ public class GUI {
         navigation.add(task5Button);
 
         main.add(navigation);
-
     }
 
-    private void initTasks(){
+    private void initTasks() {
         task1 = (new Task1()).run();
         task2 = (new Task2()).run();
         task3 = (new Task3()).run();
@@ -79,29 +73,31 @@ public class GUI {
         main.add(task5);
     }
 
-    private void onClickTask1(){
+    private void onClickTask1() {
         currentTask.setVisible(false);
         task1.setVisible(true);
         currentTask = task1;
     }
 
-    private void onClickTask2(){
+    private void onClickTask2() {
         currentTask.setVisible(false);
         task2.setVisible(true);
         currentTask = task2;
     }
 
-    private void onClickTask3(){
+    private void onClickTask3() {
         currentTask.setVisible(false);
         task3.setVisible(true);
         currentTask = task3;
     }
-    private void onClickTask4(){
+
+    private void onClickTask4() {
         currentTask.setVisible(false);
         task4.setVisible(true);
         currentTask = task4;
     }
-    private void onClickTask5(){
+
+    private void onClickTask5() {
         currentTask.setVisible(false);
         task5.setVisible(true);
         currentTask = task5;

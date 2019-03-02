@@ -87,7 +87,7 @@ class Task5 {
     }
 
     private void onClickSend() {
-        setUpTableData();
+        addTableData();
         textField.setText("");
     }
 
@@ -106,7 +106,7 @@ class Task5 {
         return jTable;
     }
 
-    private void setUpTableData() {
+    private void addTableData() {
         String[] data = new String[2];
         data[0] = textField.getText();
         data[1] = "";

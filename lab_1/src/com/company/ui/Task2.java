@@ -10,7 +10,7 @@ class Task2 {
     private JButton readButton;
     private JButton updateButton;
 
-    JPanel run(){
+    JPanel run() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         initEditTextPanel();
@@ -24,12 +24,12 @@ class Task2 {
         editTextPanel = new JPanel();
         JLabel label = new JLabel("Edit Text");
         editTextPanel.add(label);
-        textField = new JTextField(20 );
+        textField = new JTextField(20);
         editTextPanel.add(textField);
     }
 
 
-    private void initButtons(){
+    private void initButtons() {
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
         readButton = new JButton("read");
@@ -43,11 +43,11 @@ class Task2 {
         buttonsPanel.add(updateButton);
     }
 
-    private void onClickRead(){
+    private void onClickRead() {
         readButton.setText(textField.getText());
     }
 
-    private void onClickUpdate(){
+    private void onClickUpdate() {
         String helpStr = readButton.getText();
         readButton.setText(updateButton.getText());
         updateButton.setText(helpStr);
