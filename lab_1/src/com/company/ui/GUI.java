@@ -1,6 +1,10 @@
 package com.company.ui;
 
+import com.sun.org.apache.xpath.internal.functions.Function;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 
 public class GUI {
@@ -55,51 +59,45 @@ public class GUI {
 
     private void initTasks() {
         task1 = (new Task1()).run();
-        task2 = (new Task2()).run();
-        task3 = (new Task3()).run();
-        task4 = (new Task4()).run();
-        task5 = (new Task5()).run();
-
-        task2.setVisible(false);
-        task3.setVisible(false);
-        task4.setVisible(false);
-        task5.setVisible(false);
         currentTask = task1;
-
         main.add(task1);
-        main.add(task2);
-        main.add(task3);
-        main.add(task4);
-        main.add(task5);
+
     }
 
     private void onClickTask1() {
-        currentTask.setVisible(false);
-        task1.setVisible(true);
-        currentTask = task1;
+        main.remove(currentTask);
+        currentTask = (new Task1()).run();
+        main.add(currentTask);
+        main.revalidate();
     }
 
     private void onClickTask2() {
-        currentTask.setVisible(false);
-        task2.setVisible(true);
-        currentTask = task2;
+        main.remove(currentTask);
+        currentTask = (new Task2()).run();
+        main.add(currentTask);
+        main.revalidate();
     }
 
     private void onClickTask3() {
-        currentTask.setVisible(false);
-        task3.setVisible(true);
-        currentTask = task3;
+        main.remove(currentTask);
+        currentTask = (new Task3()).run();
+        main.add(currentTask);
+        main.revalidate();
     }
 
     private void onClickTask4() {
-        currentTask.setVisible(false);
-        task4.setVisible(true);
-        currentTask = task4;
+        main.remove(currentTask);
+        currentTask = (new Task4()).run();
+        main.add(currentTask);
+        main.revalidate();
     }
 
     private void onClickTask5() {
-        currentTask.setVisible(false);
-        task5.setVisible(true);
-        currentTask = task5;
+        main.remove(currentTask);
+        currentTask = (new Task5()).run();
+        main.add(currentTask);
+        main.revalidate();
     }
+
+
 }

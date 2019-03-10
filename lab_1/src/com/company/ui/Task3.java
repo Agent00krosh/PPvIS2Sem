@@ -1,36 +1,51 @@
 package com.company.ui;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
-class Task3 {
+import static java.lang.Thread.sleep;
+
+class Task3 implements KeyListenerMethods {
     private JTextField textField;
-    private JPanel editTextPanel;
-    private JPanel radioButtonPanel;
-
+    private JButton pushButton;
     private JRadioButton radioButton1;
     private JRadioButton radioButton2;
     private JRadioButton radioButton3;
+    private JPanel mainPanel;
+    private Thread thread;
 
     private ButtonGroup buttonGroup;
 
     JPanel run() {
-        JPanel mainPanel = new JPanel();
+        mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        initEditTextPanel();
-        mainPanel.add(editTextPanel);
+        initEditText();
+        mainPanel.add(textField);
+        mainPanel.add(pushButton);
         initRadioButtonPanel();
-        mainPanel.add(radioButtonPanel);
+        mainPanel.add(radioButton1);
+        mainPanel.add(radioButton2);
+        mainPanel.add(radioButton3);
+
+
+        KeyboardFocusManager keyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        keyboardFocusManager.addKeyEventDispatcher(e -> {
+            if (e.getID() == KeyEvent.KEY_RELEASED && (e.getKeyCode() == KeyEvent.VK_R) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+                start();
+            }
+            if (e.getID() == KeyEvent.KEY_RELEASED && (e.getKeyCode() == KeyEvent.VK_S) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+                stop();
+            }
+            return false;
+        });
+
         return mainPanel;
     }
 
-    private void initEditTextPanel() {
-        editTextPanel = new JPanel();
-        JLabel label = new JLabel("Edit Text ");
-        editTextPanel.add(label);
-        textField = new JTextField(20);
-        editTextPanel.add(textField);
-        JButton pushButton = new JButton("Push");
+    private void initEditText() {
+        textField = new JTextField(10);
+        pushButton = new JButton("Push");
         pushButton.addActionListener(e -> onClickPushButton());
-        editTextPanel.add(pushButton);
     }
 
     private void onClickPushButton() {
@@ -62,8 +77,6 @@ class Task3 {
     private void initRadioButtonPanel() {
 
         buttonGroup = new ButtonGroup();
-        radioButtonPanel = new JPanel();
-        radioButtonPanel.setLayout(new BoxLayout(radioButtonPanel, BoxLayout.Y_AXIS));
         radioButton1 = new JRadioButton("radio button1");
         radioButton2 = new JRadioButton("radio button2");
         radioButton3 = new JRadioButton("radio button3");
@@ -71,8 +84,37 @@ class Task3 {
         buttonGroup.add(radioButton2);
         buttonGroup.add(radioButton3);
 
-        radioButtonPanel.add(radioButton1);
-        radioButtonPanel.add(radioButton2);
-        radioButtonPanel.add(radioButton3);
+
+    }
+
+
+    @Override
+    public void start() {
+        if (thread != null) thread.stop();
+        Runnable runnable = () -> {
+            for (int i = 0; i < 1; i++) {
+                i--;
+                Component component = mainPanel.getComponent(mainPanel.getComponentCount()-1);
+                mainPanel.remove(component);
+                mainPanel.add(component,0);
+                mainPanel.revalidate();
+                try {
+                    sleep(1000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        };
+        thread = new Thread(runnable);
+        thread.start();
+    }
+
+    @Override
+    public void stop() {
+        if (thread != null) {
+            thread.stop();
+        }
     }
 }

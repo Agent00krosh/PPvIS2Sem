@@ -2,34 +2,55 @@ package com.company.ui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
-class Task5 {
+import static java.lang.Thread.sleep;
+
+class Task5 implements  KeyListenerMethods{
     private JTextField textField;
-    private JPanel editTextPanel;
-    private JPanel buttonPanel;
     private JTable jTable;
     private DefaultTableModel tableModel;
+    private JPanel mainPanel;
+    private Thread thread;
+    private JButton button2;
+    private JButton button3;
+    private JButton sendText;
 
     JPanel run() {
-        JPanel mainPanel = new JPanel();
+        mainPanel = new JPanel();
 
         initEditTextPanel();
         jTable = getJTable();
         tableModel = (DefaultTableModel) jTable.getModel();
         initButtonPanel();
-        mainPanel.add(editTextPanel);
-        mainPanel.add(buttonPanel);
+        mainPanel.add(textField);
+        mainPanel.add(sendText);
+
+
+        mainPanel.add(button2);
+        mainPanel.add(button3);
         mainPanel.add(jTable);
+
+        KeyboardFocusManager keyboardFocusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        keyboardFocusManager.addKeyEventDispatcher(e -> {
+            if (e.getID() == KeyEvent.KEY_RELEASED && (e.getKeyCode() == KeyEvent.VK_R) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+                start();
+            }
+            if (e.getID() == KeyEvent.KEY_RELEASED && (e.getKeyCode() == KeyEvent.VK_S) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+                stop();
+            }
+            return false;
+        });
+
         return mainPanel;
     }
 
     private void initButtonPanel() {
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
-        JButton button2 = new JButton("button 2");
-        JButton button3 = new JButton("button 3");
-        buttonPanel.add(button2);
-        buttonPanel.add(button3);
+
+        button2 = new JButton("button 2");
+        button3 = new JButton("button 3");
+
         button2.addActionListener(e -> onClickButton2());
         button3.addActionListener(e -> onClickButton3());
     }
@@ -63,14 +84,9 @@ class Task5 {
     }
 
     private void initEditTextPanel() {
-        editTextPanel = new JPanel();
-        JLabel label = new JLabel("Edit Text");
-        editTextPanel.add(label);
         textField = new JTextField(10);
-        editTextPanel.add(textField);
-        JButton sendText = new JButton("Push");
+        sendText = new JButton("Push");
         sendText.addActionListener(e -> onClickSend());
-        editTextPanel.add(sendText);
     }
 
     private boolean checkError() {
@@ -117,6 +133,36 @@ class Task5 {
 
     private void errorIsVisible(String message) {
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    @Override
+    public void start() {
+        if (thread != null) thread.stop();
+        Runnable runnable = () -> {
+            for (int i = 0; i < 1; i++) {
+                i--;
+                Component component = mainPanel.getComponent(mainPanel.getComponentCount()-1);
+                mainPanel.remove(component);
+                mainPanel.add(component,0);
+                mainPanel.revalidate();
+                try {
+                    sleep(1000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        };
+        thread = new Thread(runnable);
+        thread.start();
+    }
+
+    @Override
+    public void stop() {
+        if (thread != null) {
+            thread.stop();
+        }
     }
 
 }
